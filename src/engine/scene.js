@@ -13,7 +13,7 @@ function drawRoom(t){
  drawHall3(g,t,{ch:S?chapter(S.week):1,night,doorOpen:!!actor&&actor.p<.3,advisors:adv,tattered:S&&S.hap<30,
   petitioner:pet&&pet.who,px:pet&&pet.px,py:pet&&pet.py,frame:pet&&pet.frame,leaving:pet&&pet.leaving,expr:pet&&pet.expr});
 }
-function loop(t){if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook)sceneHook(t);requestAnimationFrame(loop)}
+function loop(t){if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook){g.save();g.scale(HALL.W/320,HALL.H/180);sceneHook(t);g.restore()}requestAnimationFrame(loop)}
 function walkIn(who,expr,cb){actor={who,p:0,state:'in',expr:expr||'neutral',cb};sfx('door')}
 function walkOut(cb){if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
 function setActorExpr(e){if(actor)actor.expr=e}

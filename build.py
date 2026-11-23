@@ -10,6 +10,13 @@ ORDER=['engine/util.js','engine/sprites.js','engine/sprites3.js','data/character
  'engine/audio.js','engine/hall3.js','engine/scene.js','engine/map.js','engine/ui.js','engine/court.js','engine/council.js','engine/report.js',
  'engine/systems.js','engine/advice.js','engine/siege.js','engine/music.js','engine/meta.js','engine/ending.js']
 js='\n'.join(f'/* ---- {p} ---- */\n'+S(p) for p in ORDER if os.path.exists(os.path.join(R,'src',p)))
+import base64 as _b64
+def _art():
+    d=os.path.join(R,'src','art');items=[]
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if n.endswith('.png'):items.append("'%s':'data:image/png;base64,%s'"%(n[:-4],_b64.b64encode(open(os.path.join(d,n),'rb').read()).decode()))
+    return '/* ---- art (src/art/*.png as data URIs) ---- */\nconst ART={'+','.join(items)+'};\n'
+js=js.replace('/* ---- engine/hall3.js ---- */',_art()+'/* ---- engine/hall3.js ---- */',1)
 head='''<title>عرش الوادي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;800&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap">
