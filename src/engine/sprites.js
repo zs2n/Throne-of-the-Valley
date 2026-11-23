@@ -1,4 +1,4 @@
-/* ===== Arvand sprites v2: shaded, outlined pixel art (portraits 32x32, bodies 24x44) ===== */
+/* ===== Valley sprites v2: shaded, outlined pixel art (portraits 32x32, bodies 24x44) ===== */
 const SP2=(()=>{
 const h2r=h=>{if(h.length===4)h='#'+h[1]+h[1]+h[2]+h[2]+h[3]+h[3];const n=parseInt(h.slice(1),16);return[n>>16,n>>8&255,n&255]};
 function rgb2hsl([r,g,b]){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b);let h=0,s=0,l=(mx+mn)/2;if(mx!==mn){const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);h=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;h*=60}return[h,s,l]}
