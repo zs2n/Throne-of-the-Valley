@@ -6,7 +6,7 @@ const HALL={W:480,H:270,door:[-24,236],stand:[122,236],style:'tall',
  /* light sources (x,y,radius) for flicker; windows (x0,x1,y0,y1) for shafts and night glow */
  lights:[[243,42,46],[202,90,26],[277,90,26],[5,95,30],[476,95,30]],
  wins:[[148,170,30,143],[312,332,30,143]],
- advisors:[[160,198],[180,198],[300,198],[320,198]]};
+ advisors:[[300,198],[318,198],[336,198],[354,198]]};
 let hallImg=null,hallBg=null,hallKey='';
 function hallImage(){if(!hallImg){hallImg=new Image();hallImg.src=ART.hall}return hallImg}
 function bakeHall(ch,night,tat){

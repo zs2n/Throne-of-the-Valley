@@ -172,6 +172,13 @@ h3{margin:0;font-family:var(--f-disp);font-size:22px;font-weight:800;color:var(-
 .market{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
 .market .mis{gap:4px}
 .toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));inset-inline:0;margin:auto;width:max-content;max-width:calc(100% - 32px);z-index:40;background:var(--stone);border:2px solid var(--gold);padding:6px 14px;font-size:14px;animation:card 3.4s ease forwards}
+
+/* speech bubble over the petitioner's head (wide screens); narrow screens keep the parchment text in the panel */
+#bub{position:absolute;left:25%;bottom:33%;transform:translateX(-50%);width:40%;background:#0a0a0c;color:#fff;border:2px solid #1d1d22;border-radius:10px;padding:9px 14px;font-size:15px;line-height:1.75;text-align:start;cursor:pointer;z-index:3;box-shadow:0 2px 0 #000a}
+#bub::after{content:"";position:absolute;top:100%;left:50%;margin-left:-8px;border:8px solid transparent;border-top:11px solid #0a0a0c;border-bottom:0}
+#bub[hidden]{display:none}
+@media(max-width:979px){#bub{display:none!important}}
+@media(min-width:980px){#sp{display:none}}
 </style>
 </head>
 <body>
@@ -182,6 +189,7 @@ h3{margin:0;font-family:var(--f-disp);font-size:22px;font-weight:800;color:var(-
       <canvas id="scene" width="480" height="270" aria-label="قاعة العرش"></canvas>
       <div id="mapWrap" hidden><canvas id="map" width="640" height="400" aria-label="خريطة المملكة"></canvas><div id="nodes"></div></div>
       <div id="card"></div>
+      <div id="bub" hidden></div>
       <div class="queue" id="queue" hidden></div>
     </div>
     <section id="panel" aria-live="polite"></section>
@@ -1444,7 +1452,7 @@ const HALL={W:480,H:270,door:[-24,236],stand:[122,236],style:'tall',
  /* light sources (x,y,radius) for flicker; windows (x0,x1,y0,y1) for shafts and night glow */
  lights:[[243,42,46],[202,90,26],[277,90,26],[5,95,30],[476,95,30]],
  wins:[[148,170,30,143],[312,332,30,143]],
- advisors:[[160,198],[180,198],[300,198],[320,198]]};
+ advisors:[[300,198],[318,198],[336,198],[354,198]]};
 let hallImg=null,hallBg=null,hallKey='';
 function hallImage(){if(!hallImg){hallImg=new Image();hallImg.src=ART.hall}return hallImg}
 function bakeHall(ch,night,tat){
@@ -1510,7 +1518,7 @@ function drawRoom(t){
 }
 function loop(t){if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook){g.save();g.scale(HALL.W/320,HALL.H/180);sceneHook(t);g.restore()}requestAnimationFrame(loop)}
 function walkIn(who,expr,cb){actor={who,p:0,state:'in',expr:expr||'neutral',cb};sfx('door')}
-function walkOut(cb){if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
+function walkOut(cb){if(typeof hideBubble==='function')hideBubble();if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
 function setActorExpr(e){if(actor)actor.expr=e}
 
 /* ---- engine/map.js ---- */
@@ -1646,6 +1654,8 @@ function optState(o,id){
  return'';
 }
 let typing=null,curOpts=[];
+function setBubble(t){const b=$('#bub');if(!b)return;if(!t){b.hidden=true;b.textContent='';return}b.hidden=false;b.textContent=t}
+function hideBubble(){setBubble('')}
 function showPetition(id){
  const ev=E[id];const[name,role]=N[ev.who]||['زائر',''];let t=txt(ev.text);
  if(esc(id)>1)t='(عاد بعد أسبوع، والأمر صار أثقل) '+t;
@@ -1653,9 +1663,9 @@ function showPetition(id){
   <div class="speech" id="sp" title="انقر لإكمال النص"></div><div id="extra"></div><div class="opts" id="opts" hidden></div>`;
  SPR.paint($('#pt'),ev.who,(EXPR[id]||[])[0]);
  const sp=$('#sp');let i=0;clearInterval(typing);
- const finish=()=>{clearInterval(typing);sp.textContent=t;renderOpts(id)};
- typing=setInterval(()=>{i+=SET.speed;sp.textContent=t.slice(0,i);if(i%8<SET.speed)sfx('type');if(i>=t.length)finish()},18);
- sp.onclick=finish;
+ const finish=()=>{clearInterval(typing);sp.textContent=t;setBubble(t);renderOpts(id)};
+ typing=setInterval(()=>{i+=SET.speed;sp.textContent=t.slice(0,i);setBubble(t.slice(0,i));if(i%8<SET.speed)sfx('type');if(i>=t.length)finish()},18);
+ sp.onclick=finish;$('#bub').onclick=finish;
 }
 function renderOpts(id){
  const box=$('#opts');if(!box||!box.hidden)return;box.hidden=false;
@@ -1676,7 +1686,7 @@ function reaction(id,o,ok){
  const who=E[id].who,give=(o.cost&&Object.keys(o.cost).length)||(o.e&&o.e.hap>0)||o.req;
  if(ok===false)return'sad';
  if(give)return MOOD.sly.includes(who)?'smug':'happy';return MOOD.angry.includes(who)?'angry':'sad'}
-function choose(id,i){
+function choose(id,i){hideBubble();
  const ev=E[id],o=curOpts[i];if(!o||optState(o,id))return;
  sfx('choose');
  const m=esc(id),costOut=[];

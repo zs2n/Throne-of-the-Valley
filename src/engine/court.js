@@ -44,6 +44,8 @@ function optState(o,id){
  return'';
 }
 let typing=null,curOpts=[];
+function setBubble(t){const b=$('#bub');if(!b)return;if(!t){b.hidden=true;b.textContent='';return}b.hidden=false;b.textContent=t}
+function hideBubble(){setBubble('')}
 function showPetition(id){
  const ev=E[id];const[name,role]=N[ev.who]||['زائر',''];let t=txt(ev.text);
  if(esc(id)>1)t='(عاد بعد أسبوع، والأمر صار أثقل) '+t;
@@ -51,9 +53,9 @@ function showPetition(id){
   <div class="speech" id="sp" title="انقر لإكمال النص"></div><div id="extra"></div><div class="opts" id="opts" hidden></div>`;
  SPR.paint($('#pt'),ev.who,(EXPR[id]||[])[0]);
  const sp=$('#sp');let i=0;clearInterval(typing);
- const finish=()=>{clearInterval(typing);sp.textContent=t;renderOpts(id)};
- typing=setInterval(()=>{i+=SET.speed;sp.textContent=t.slice(0,i);if(i%8<SET.speed)sfx('type');if(i>=t.length)finish()},18);
- sp.onclick=finish;
+ const finish=()=>{clearInterval(typing);sp.textContent=t;setBubble(t);renderOpts(id)};
+ typing=setInterval(()=>{i+=SET.speed;sp.textContent=t.slice(0,i);setBubble(t.slice(0,i));if(i%8<SET.speed)sfx('type');if(i>=t.length)finish()},18);
+ sp.onclick=finish;$('#bub').onclick=finish;
 }
 function renderOpts(id){
  const box=$('#opts');if(!box||!box.hidden)return;box.hidden=false;
@@ -74,7 +76,7 @@ function reaction(id,o,ok){
  const who=E[id].who,give=(o.cost&&Object.keys(o.cost).length)||(o.e&&o.e.hap>0)||o.req;
  if(ok===false)return'sad';
  if(give)return MOOD.sly.includes(who)?'smug':'happy';return MOOD.angry.includes(who)?'angry':'sad'}
-function choose(id,i){
+function choose(id,i){hideBubble();
  const ev=E[id],o=curOpts[i];if(!o||optState(o,id))return;
  sfx('choose');
  const m=esc(id),costOut=[];

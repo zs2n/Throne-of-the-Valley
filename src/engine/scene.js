@@ -15,5 +15,5 @@ function drawRoom(t){
 }
 function loop(t){if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook){g.save();g.scale(HALL.W/320,HALL.H/180);sceneHook(t);g.restore()}requestAnimationFrame(loop)}
 function walkIn(who,expr,cb){actor={who,p:0,state:'in',expr:expr||'neutral',cb};sfx('door')}
-function walkOut(cb){if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
+function walkOut(cb){if(typeof hideBubble==='function')hideBubble();if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
 function setActorExpr(e){if(actor)actor.expr=e}
