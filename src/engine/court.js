@@ -50,10 +50,14 @@ function showPetition(id){
  $('#panel').innerHTML=`<div class="who"><canvas id="pt"></canvas><div><h2>${name}</h2><p>${role}</p></div></div>
   <div class="speech" id="sp" title="انقر لإكمال النص"></div><div id="extra"></div><div class="opts" id="opts" hidden></div>`;
  SPR.paint($('#pt'),ev.who,(EXPR[id]||[])[0]);
- const sp=$('#sp');let i=0;clearInterval(typing);
- const finish=()=>{clearInterval(typing);sp.textContent=t;renderOpts(id)};
- typing=setInterval(()=>{i+=SET.speed;sp.textContent=t.slice(0,i);if(i%8<SET.speed)sfx('type');if(i>=t.length)finish()},18);
- sp.onclick=finish;
+ const sp=$('#sp');clearInterval(typing);
+ const parts=(t.match(/[^.!؟?…»]+[.!؟?…»]*\s*/g)||[t]).map(x=>x.trim()).filter(Boolean);
+ const chunks=[];for(let k=0;k<parts.length;k++){const c=chunks[chunks.length-1];if(c&&(c+' '+parts[k]).length<=70)chunks[chunks.length-1]=c+' '+parts[k];else chunks.push(parts[k])}
+ let ci=0,i=0,cur='';
+ const done=()=>{clearInterval(typing);VC.talking=false;sp.textContent=chunks[ci];sp.onclick=null;if(ci>=chunks.length-1){renderOpts(id)}else{sp.insertAdjacentHTML('beforeend','<span class="more">◂</span>');sp.onclick=()=>{ci++;start()}}};
+ const start=()=>{clearInterval(typing);cur=chunks[ci];i=0;VC.talking=true;sp.textContent='';sp.onclick=done;
+  typing=setInterval(()=>{i+=SET.speed;sp.textContent=cur.slice(0,i);if(i%8<SET.speed)sfx('type');if(i>=cur.length)done()},22)};
+ start();
 }
 function renderOpts(id){
  const box=$('#opts');if(!box||!box.hidden)return;box.hidden=false;

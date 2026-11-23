@@ -4,13 +4,14 @@
   --ink:#120d14; --stone:#211825; --stone2:#2f2335; --stone3:#3f2f47;
   --parch:#e8d6ae; --parch2:#cdb88a; --text:#efe4cc; --muted:#a8987f;
   --gold:#e3b54e; --blood:#b02e43; --moss:#7fa95c; --ash:#8e8892; --sky:#7aa6d8; --edge:#5b4566;
-  --f-disp:"Handjet","Noto Kufi Arabic",system-ui,sans-serif;
-  --f-body:"Noto Kufi Arabic","Segoe UI",Tahoma,sans-serif;
+  --f-disp:"IBM Plex Sans Arabic","Tajawal",system-ui,sans-serif;
+  --f-title:"Amiri","IBM Plex Sans Arabic",serif;
+  --f-body:"IBM Plex Sans Arabic","Tajawal","Segoe UI",Tahoma,sans-serif;
   color-scheme:dark;
 }
 html,body{height:100%}
 [hidden]{display:none!important}
-body{background:var(--ink);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.75;margin:0}
+body{background:var(--ink);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.95;margin:0;-webkit-font-smoothing:antialiased}
 *{box-sizing:border-box}
 button{font-family:inherit;color:inherit}
 :focus-visible{outline:2px dashed var(--gold);outline-offset:2px}
@@ -103,7 +104,7 @@ h3{margin:0;font-family:var(--f-disp);font-size:22px;font-weight:800;color:var(-
 /* overlays */
 .overlay{position:fixed;inset:0;background:rgba(10,7,12,.86);display:grid;place-items:center;padding:16px;z-index:20;overflow:auto}
 .box{background:var(--stone);border:3px solid var(--edge);box-shadow:0 0 0 3px var(--ink);max-width:640px;width:100%;padding:18px;display:grid;gap:12px;max-height:calc(100% - 20px);overflow:auto}
-.title-name{font-family:var(--f-disp);font-size:clamp(48px,11vw,92px);font-weight:800;color:var(--gold);line-height:.95;text-align:center;text-shadow:0 4px 0 #5a1a22}
+.title-name{font-family:var(--f-title);font-size:clamp(48px,11vw,92px);font-weight:800;color:var(--gold);line-height:.95;text-align:center;text-shadow:0 4px 0 #5a1a22}
 .title-sub{text-align:center;color:var(--parch);margin:0}
 .box p{margin:0}
 .fac{display:grid;gap:4px;background:var(--stone2);border:2px solid var(--edge);padding:8px 10px}
@@ -112,7 +113,7 @@ h3{margin:0;font-family:var(--f-disp);font-size:22px;font-weight:800;color:var(-
 .bar u{position:absolute;inset-block:-3px;inset-inline-start:70%;width:2px;background:var(--parch)}
 .log{display:grid;gap:4px;font-size:13.5px;max-height:55vh;overflow:auto}
 .log div{border-bottom:1px solid var(--stone2);padding-block:3px}
-.ending h1{font-family:var(--f-disp);font-size:clamp(36px,8vw,60px);font-weight:800;color:var(--gold);margin:0;line-height:1.05;text-wrap:balance}
+.ending h1{font-family:var(--f-title);font-size:clamp(36px,8vw,60px);font-weight:800;color:var(--gold);margin:0;line-height:1.05;text-wrap:balance}
 .credit{text-align:center;font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 /* ---- v2 additions ---- */
@@ -158,3 +159,26 @@ h3{margin:0;font-family:var(--f-disp);font-size:22px;font-weight:800;color:var(-
 .market{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
 .market .mis{gap:4px}
 .toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));inset-inline:0;margin:auto;width:max-content;max-width:calc(100% - 32px);z-index:40;background:var(--stone);border:2px solid var(--gold);padding:6px 14px;font-size:14px;animation:card 3.4s ease forwards}
+
+/* ===== v2 look: smooth, rounded, readable ===== */
+#stage canvas,.who canvas,.ret canvas,.adv canvas,.advice canvas,.tut canvas,.chron img,.stat img,.chip img{image-rendering:auto}
+#stage canvas{border-radius:14px}
+#stage,#panel,#hud,.box,.tut,.toast,.ledger,.letter{border-radius:14px}
+.px,.opt,.chip,.node em,.queue,.endc,.advice,.speech{border-radius:10px}
+.px,.opt{border-width:1px;box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .15s,background .15s,box-shadow .15s}
+.opt:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.opt{padding:12px 16px;font-size:17px;line-height:1.7}
+.px{font-size:16px;padding:8px 14px}.px.small{font-size:15px;padding:5px 11px}
+.who canvas{width:96px;height:96px;border-radius:50%;border:2px solid var(--edge);background:var(--stone2);box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.who h2{font-size:28px}.who p{font-size:15px}
+.ret canvas{width:52px;height:52px;border-radius:50%}
+.adv canvas{width:34px;height:34px;border-radius:50%}
+.advice canvas{width:52px;height:52px;border-radius:50%}
+.tut canvas{width:76px;height:76px;border-radius:50%}
+.speech{font-size:19px;line-height:2.05;padding:14px 18px}
+.stat span,.chip,.queue,.node em,.ret small,.endc,.who p,#hud .when small{font-size:14px}
+.muted,.mis p,.log,.ledger .note,.ledger ul,.ledger h4,.tut p{font-size:15.5px}
+.chip{padding:1px 8px}
+.stat img{width:22px;height:22px}
+.speech .more{display:inline-block;margin-inline-start:8px;color:var(--gold);cursor:pointer;animation:nudge 1s infinite}
+@keyframes nudge{50%{transform:translateX(-4px)}}

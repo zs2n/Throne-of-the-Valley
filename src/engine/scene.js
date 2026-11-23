@@ -1,5 +1,5 @@
 /* ===== ENGINE: throne room scene (perspective hall, model B characters) ===== */
-const sc=$('#scene'),g=sc.getContext('2d');g.imageSmoothingEnabled=false;
+const sc=$('#scene'),g=sc.getContext('2d');
 let actor=null,sceneMode='room',sceneHook=null;
 const lerp=(a,b,t)=>a+(b-a)*t;
 function drawRoom(t){
@@ -13,7 +13,7 @@ function drawRoom(t){
  drawHall3(g,t,{ch:S?chapter(S.week):1,night,doorOpen:!!actor&&actor.p<.3,advisors:adv,tattered:S&&S.hap<30,
   petitioner:pet&&pet.who,px:pet&&pet.px,py:pet&&pet.py,frame:pet&&pet.frame,leaving:pet&&pet.leaving,expr:pet&&pet.expr});
 }
-function loop(t){if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook)sceneHook(t);requestAnimationFrame(loop)}
+function loop(t){VC.tick(t);if(sceneMode==='room')drawRoom(t);else if(sceneMode==='map')drawMap(t);else if(sceneHook)sceneHook(t);requestAnimationFrame(loop)}
 function walkIn(who,expr,cb){actor={who,p:0,state:'in',expr:expr||'neutral',cb};sfx('door')}
 function walkOut(cb){if(!actor){cb();return}actor.state='out';actor.cb=cb;sfx('steps')}
 function setActorExpr(e){if(actor)actor.expr=e}

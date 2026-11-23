@@ -6,7 +6,7 @@ myPower.extra.push(parts=>{
 });
 
 myPower.extra.push(parts=>{
- if(F('catapults'))parts.push(['منجنيقا دانيال',30]);
+ if(F('catapults'))parts.push(['منجنيقا عامر',30]);
  if(S.arms)parts.push(['مخزون السلاح ('+A(S.arms)+')',S.arms*6]);
  });
 /* advisors' personal quests left too long */

@@ -1,7 +1,7 @@
 /* ===== ENGINE: state, rules, effects ===== */
 let S;
 const DIFF={
- easy:{n:'ملك جديد',d:'موارد أكثر، وجيش بهرام أصغر وأبطأ نموًّا، وجفاف أخف.',gold:170,food:120,enemy:330,drought:3,growth:14},
+ easy:{n:'ملك جديد',d:'موارد أكثر، وجيش صخر أصغر وأبطأ نموًّا، وجفاف أخف.',gold:170,food:120,enemy:330,drought:3,growth:14},
  normal:{n:'ملك',d:'التوازن الذي صُمّمت عليه اللعبة.',gold:120,food:90,enemy:520,drought:6,growth:22},
  hard:{n:'طاغية الجفاف',d:'جفاف أقسى، وجيش أكبر بكثير، وموارد أقل. لمن عرف اللعبة.',gold:90,food:70,enemy:640,drought:9,growth:24},
 };

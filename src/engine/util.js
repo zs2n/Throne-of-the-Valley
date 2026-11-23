@@ -35,4 +35,4 @@ const ICONS={
 const ICON={};
 (function(){for(const k in ICONS){const[rows,pal]=ICONS[k];const c=document.createElement('canvas');c.width=8;c.height=8;const x=c.getContext('2d');rows.forEach((r,y)=>[...r].forEach((ch,i)=>{if(pal[ch]){x.fillStyle=pal[ch];x.fillRect(i,y,1,1)}}));ICON[k]=c.toDataURL()}})();
 const ic=k=>ICON[k]?`<img src="${ICON[k]}" alt="">`:'';
-const STATN={gold:'ذهب',food:'طعام',hap:'رضا',soldiers:'جنود',pop:'سكان',fort:'أسوار',enemy:'جيش بهرام',river:'بنو النهر',horn:'أهل القرن',moon:'رهبنة القمر',clues:'دليل',morale:'معنويات',arms:'سلاح'};
+const STATN={gold:'ذهب',food:'طعام',hap:'رضا',soldiers:'جنود',pop:'سكان',fort:'أسوار',enemy:'جيش صخر',river:'بنو النهر',horn:'أهل القرن',moon:'رهبنة القمر',clues:'دليل',morale:'معنويات',arms:'سلاح'};

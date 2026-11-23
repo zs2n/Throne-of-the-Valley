@@ -11,7 +11,7 @@ const ACH=[
  {id:'eye',n:'عين في الظلام',d:'اكشف الخائن قبل نهاية الأسبوع السابع.',t:()=>F('exposed')&&S.exposedWeek&&S.exposedWeek<=7},
  {id:'fed',n:'لم يجع أحد',d:'أنهِ اللعبة دون مجاعة واحدة.',t:()=>S.famines===0},
  {id:'mason',n:'البنّاء',d:'ارفع الأسوار إلى المستوى الثالث.',t:()=>S.fort>=3},
- {id:'council',n:'مجلس كامل',d:'وظّف دانيال وقاسم في لعبة واحدة.',t:()=>S.ret.daniel.on&&S.ret.qasim.on},
+ {id:'council',n:'مجلس كامل',d:'وظّف عامر وقاسم في لعبة واحدة.',t:()=>S.ret.daniel.on&&S.ret.qasim.on},
  {id:'father',n:'الأب الرحيم',d:'ربِّ زياد على الرحمة ثلاث مرات.',t:()=>S.son.kind>=3},
  {id:'liar',n:'لا يُخدع الملك',d:'اكشف زائرًا كاذبًا قبل أن تعطيه شيئًا.',t:()=>Object.values(S.checked).includes('lie')},
  {id:'rich',n:'خزانة ممتلئة',d:'أنهِ اللعبة ومعك ٢٥٠ ذهبًا.',t:()=>S.gold>=250},
@@ -40,7 +40,7 @@ function gensLines(k){const L=[],fell=['fall','exile','revolt','stolen'].include
  if(F('temple')&&!F('betrayedmoon'))L.push('صار معبد القمر أكبر من القصر، والكاهنات يعالجن الفقراء مجانًا.');if(F('betrayedmoon'))L.push('لا قناديل في الليل بعد اليوم الذي سُلّمت فيه أسيل. الناس يقولون إن القمر لم يعد يرى الوادي.');
  if(F('linatrust'))L.push(F('betrothed')?'تزوّجت لينا من جسّار حين اختارت، لا حين اختير لها، وصارت جسرًا بين الوادي والجبال.':'صارت لينا أشهر سفيرة في الممالك الثلاث، ويُقال إنها أنهت حربين بالكلام.');else if(F('linacold'))L.push('تزوّجت لينا كما أُمرت. لم تزُر القصر بعد ذلك إلا في الجنائز.');
  if(F('saqrsaved'))L.push('صقر بن غازي صار قائد الجيش بعد أبيه، ولا يبدأ حملة قبل أن يمرّ بالأقفاص التي أُخرج منها، ليتذكّر.');else if(F('saqrlost'))L.push('لم يُعرف مصير صقر بن غازي. ترك القائد سيفه بعد الحرب ومات وحيدًا.');
- if(F('exposed'))L.push(F('pardoned')?'رستم عاش ما بقي من عمره حارسًا على البرج الذي خانه، ولم يُسمع له صوت.':'خاتم الأسد معلّق في قاعة العرش، تذكيرًا بأن الخيانة تبدأ من البيت.');else if(F('rustamfell'))L.push('سقط رستم بخنجر نوال على البوابة الشرقية. نوال اختفت بعد الحرب ولم يرها أحد.');
+ if(F('exposed'))L.push(F('pardoned')?'طلال عاش ما بقي من عمره حارسًا على البرج الذي خانه، ولم يُسمع له صوت.':'خاتم الأسد معلّق في قاعة العرش، تذكيرًا بأن الخيانة تبدأ من البيت.');else if(F('rustamfell'))L.push('سقط طلال بخنجر نوال على البوابة الشرقية. نوال اختفت بعد الحرب ولم يرها أحد.');
  if(F('bandits')&&!F('banditsdone'))L.push('عادت عصابة الذئاب أقوى، وصارت الغابة السوداء طريقًا لا يسلكه أحد بعد المغيب.');
  if(k==='peace')L.push('الطريق بين الوادي وأرض الرماد صار طريق قوافل. وفي الشرق تمثال لملك غريب يحمل رغيف خبز.');
  return L}
@@ -52,8 +52,8 @@ function showChron(k){
  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');x.imageSmoothingEnabled=false;
  const gr=x.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#efe0bd');gr.addColorStop(1,'#d9c294');x.fillStyle=gr;x.fillRect(0,0,W,H);
  x.strokeStyle='#6a1a22';x.lineWidth=6;x.strokeRect(10,10,W-20,H-20);x.lineWidth=2;x.strokeRect(20,20,W-40,H-40);
- x.direction='rtl';x.textAlign='center';x.fillStyle='#6a1a22';x.font='800 44px Handjet, "Noto Kufi Arabic", sans-serif';x.fillText('سجل الملك سالار',W/2,84);
- x.font='16px "Noto Kufi Arabic", sans-serif';x.fillStyle='#4a3420';x.fillText('عرش أرْوَند · '+DIFF[S.diff].n+' · اثنا عشر أسبوعًا',W/2,116);
+ x.direction='rtl';x.textAlign='center';x.fillStyle='#6a1a22';x.font='800 44px Handjet, "Noto Kufi Arabic", sans-serif';x.fillText('سجل الملك نادر',W/2,84);
+ x.font='16px "Noto Kufi Arabic", sans-serif';x.fillStyle='#4a3420';x.fillText('عرش الواحة · '+DIFF[S.diff].n+' · اثنا عشر أسبوعًا',W/2,116);
  x.fillStyle='#9a845a';x.fillRect(80,136,W-160,2);
  x.textAlign='right';
  items.forEach((c,i)=>{const y=160+i*rowH;const p=SPR.portrait(c.who,c.x||'neutral');x.fillStyle='#3a2d44';x.fillRect(W-96,y,48,48);x.drawImage(p,W-96,y,48,48);x.strokeStyle='#6a1a22';x.lineWidth=2;x.strokeRect(W-96,y,48,48);
@@ -85,7 +85,7 @@ const tut=(()=>{let box=null;
   mis:{sel:'#secMis',t:'أرسل كل مستشار إلى مهمة تناسب مهارته. النسبة بجانب اسمه هي فرصة النجاح. المهمات تُحسم عند ختم الأسبوع.'},
   dec:{sel:'#secDecree',t:'هنا مرسوم الأسبوع والسوق والضرائب. كل قانون له ثمن، والشعب يتذكّر.'},
   end:{sel:'#endW',t:'حين تنتهي، اختم الأسبوع. ستُحسب الضرائب والطعام ورواتب الجند، وتصلك التقارير.'},
-  rep:{sel:'#panel',t:'هذا دفتر الأسبوع. اقرأه جيدًا: الأرقام تخبرك بما سيحدث قبل أن يحدث. بعد هذا ستحكم وحدك. بهرام يصل في الأسبوع الثاني عشر. وفّقك الله يا مولاي.'},
+  rep:{sel:'#panel',t:'هذا دفتر الأسبوع. اقرأه جيدًا: الأرقام تخبرك بما سيحدث قبل أن يحدث. بعد هذا ستحكم وحدك. صخر يصل في الأسبوع الثاني عشر. وفّقك الله يا مولاي.'},
  };
  const queue=[];
  function render(){if(box){box.remove();box=null}$$('.hl').forEach(e=>e.classList.remove('hl'));if(!queue.length||!SET.tutorial)return;

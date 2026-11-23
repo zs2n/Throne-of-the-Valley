@@ -17,8 +17,8 @@ function endWeek(){
  if(S.hap>=65){S.pop+=3;R.events.push('الرخاء يجذب العائلات: +٣ سكان.')}
  if(S.hap>70)dh-=1;
  if(dh){S.hap=clamp(S.hap+dh,0,100);R.events.push(`تغيّر رضا الشعب بسبب القوانين والأحوال: ${sg(dh)}.`)}
- S.enemy+=DIFF[S.diff].growth;S.enemyNat=(S.enemyNat||S.enemy)+DIFF[S.diff].growth;R.events.push('جيش بهرام يكبر: يلتحق به الجائعون من الشرق.');
- if(S.clues>=3&&!F('exposed')&&!F('cluenote')){S.flags.cluenote=1;R.events.push('نوال وسليم يتفقان: كل الأدلة تشير إلى خاتم الأسد. الأمير رستم.')}
+ S.enemy+=DIFF[S.diff].growth;S.enemyNat=(S.enemyNat||S.enemy)+DIFF[S.diff].growth;R.events.push('جيش صخر يكبر: يلتحق به الجائعون من الشرق.');
+ if(S.clues>=3&&!F('exposed')&&!F('cluenote')){S.flags.cluenote=1;R.events.push('نوال وسليم يتفقان: كل الأدلة تشير إلى خاتم الأسد. الأمير طلال.')}
  for(const l of run('weekEnd'))R.events.push(l);
  const wk=S.week;S.week++;S.phase='report';hud();sfx('bell');
  const sumLine=arr=>arr.map(([n,v])=>`<li><span>${n}</span><span class="${v>=0?'p':'n'}">${sg(v)}</span></li>`).join('');
@@ -30,7 +30,7 @@ function endWeek(){
  ${S.wk.length?`<div><h4>ما جرى في القاعة</h4><ul>${S.wk.map(note).join('')}</ul></div>`:''}
  <div><h4>أحوال المملكة</h4><ul>${R.events.map(note).join('')}</ul></div>
  ${run('report').join('')}
- </div><button class="px gold" id="nw">${S.week===12?'بهرام عند الأسوار…':'الأسبوع '+A(S.week)}</button>`;
+ </div><button class="px gold" id="nw">${S.week===12?'صخر عند الأسوار…':'الأسبوع '+A(S.week)}</button>`;
  showStage('scene');
  if(S.hap<=0){$('#nw').onclick=()=>ending('revolt');return}
  $('#nw').onclick=startWeek;$('#nw').focus();
