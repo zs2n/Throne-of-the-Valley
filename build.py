@@ -16,9 +16,11 @@ head='''<title>عرش أرْوَند</title>
 <style>'''+S('style.css')+'</style>\n'
 import base64
 ico=lambda n:base64.b64encode(open(os.path.join(R,'src',n),'rb').read()).decode()
-head=head.replace('<link rel="preconnect"','<link rel="icon" type="image/png" href="data:image/png;base64,'+ico('icon64.png')+'">\n<link rel="apple-touch-icon" href="data:image/png;base64,'+ico('icon192.png')+'">\n<link rel="preconnect"',1)
+# dist/arvand.html (artifact) embeds the icons; index.html (GitHub Pages) links real files, which bookmarks and tabs pick up more reliably
+head_dist=head.replace('<link rel="preconnect"','<link rel="icon" type="image/png" href="data:image/png;base64,'+ico('icon64.png')+'">\n<link rel="apple-touch-icon" href="data:image/png;base64,'+ico('icon192.png')+'">\n<link rel="preconnect"',1)
+head=head.replace('<link rel="preconnect"','<link rel="icon" href="favicon.ico" sizes="any">\n<link rel="icon" type="image/png" href="favicon.png">\n<link rel="apple-touch-icon" href="apple-touch-icon.png">\n<link rel="preconnect"',1)
 body=S('shell.html')+'\n<script>\n'+js+'\n</script>\n'
 os.makedirs(os.path.join(R,'dist'),exist_ok=True)
-open(os.path.join(R,'dist','arvand.html'),'w',encoding='utf-8').write(head+body)
+open(os.path.join(R,'dist','arvand.html'),'w',encoding='utf-8').write(head_dist+body)
 open(os.path.join(R,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="عرش أرْوَند: لعبة إدارة مملكة وقرارات بأسلوب بكسل آرت، من إنتاج استوديو قرطاس.">\n'+head+'</head>\n<body>\n'+body+'</body>\n</html>\n')
 print('built',len(head+body)//1024,'KB')
