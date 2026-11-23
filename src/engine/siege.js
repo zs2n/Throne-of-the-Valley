@@ -1,7 +1,7 @@
 /* ===== ENGINE: speech before battle + animated siege with three decisions ===== */
 const SPEECH=[
  {title:'افتتاح الخطبة',opts:[
-  {t:'«يا أهل أرْوَند، لم أترككم جوعى يومًا»',f:()=>S.famines===0&&S.hap>=50?[10,'هتف الناس: صدقتَ!']:[-5,'تذكّر الناس الجوع فتمتموا.']},
+  {t:'«يا أهل الوادي، لم أترككم جوعى يومًا»',f:()=>S.famines===0&&S.hap>=50?[10,'هتف الناس: صدقتَ!']:[-5,'تذكّر الناس الجوع فتمتموا.']},
   {t:'«سأكون أول من يقف على السور»',f:()=>[6,'رفع الجنود رماحهم.']},
   {t:'«الرماد جاء جائعًا، ونحن سنصمد لأننا أهل»',f:()=>F('refugees')||F('ashsecret')?[8,'فهم الناس أنهم يقاتلون من أجل شيء أكبر.']:[3,'أومأ بعضهم.']}]},
  {title:'عن الحلفاء',opts:[
@@ -56,7 +56,7 @@ function siegeScene(t){
  for(const f of SG.fires){const fl=Math.sin(t/60+f.x)*2;x.fillStyle='rgba(255,120,40,.8)';x.fillRect(f.x,f.y-6-fl,6,6+fl);x.fillStyle='#ffd27a';x.fillRect(f.x+2,f.y-4-fl,2,4)}
  const vg=x.createRadialGradient(160,90,50,160,90,200);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(0,0,0,.6)');x.fillStyle=vg;x.fillRect(0,0,W,H);
 }
-function siegeBar(){const me=SG.baseMe.total*SG.my,en=SG.baseEn*SG.en;const p=clamp(me/(me+en)*100,5,95);return`<div class="row"><span>${ic('soldiers')} أرْوَند</span><span>جيش الرماد ${ic('enemy')}</span></div><div class="siegebar"><i style="width:${p}%"></i></div>`}
+function siegeBar(){const me=SG.baseMe.total*SG.my,en=SG.baseEn*SG.en;const p=clamp(me/(me+en)*100,5,95);return`<div class="row"><span>${ic('soldiers')} الوادي</span><span>جيش الرماد ${ic('enemy')}</span></div><div class="siegebar"><i style="width:${p}%"></i></div>`}
 function siegePhase(){
  if(SG.phase>=PHASES.length){siegeEnd();return}
  if(SG.phase===1&&SG.traitor&&!SG.traitorDone){siegeTraitor();return}

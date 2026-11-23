@@ -53,7 +53,7 @@ function showChron(k){
  const gr=x.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#efe0bd');gr.addColorStop(1,'#d9c294');x.fillStyle=gr;x.fillRect(0,0,W,H);
  x.strokeStyle='#6a1a22';x.lineWidth=6;x.strokeRect(10,10,W-20,H-20);x.lineWidth=2;x.strokeRect(20,20,W-40,H-40);
  x.direction='rtl';x.textAlign='center';x.fillStyle='#6a1a22';x.font='800 44px Handjet, "Noto Kufi Arabic", sans-serif';x.fillText('سجل الملك سالار',W/2,84);
- x.font='16px "Noto Kufi Arabic", sans-serif';x.fillStyle='#4a3420';x.fillText('عرش أرْوَند · '+DIFF[S.diff].n+' · اثنا عشر أسبوعًا',W/2,116);
+ x.font='16px "Noto Kufi Arabic", sans-serif';x.fillStyle='#4a3420';x.fillText('عرش الوادي · '+DIFF[S.diff].n+' · اثنا عشر أسبوعًا',W/2,116);
  x.fillStyle='#9a845a';x.fillRect(80,136,W-160,2);
  x.textAlign='right';
  items.forEach((c,i)=>{const y=160+i*rowH;const p=SPR.portrait(c.who,c.x||'neutral');x.fillStyle='#3a2d44';x.fillRect(W-96,y,48,48);x.drawImage(p,W-96,y,48,48);x.strokeStyle='#6a1a22';x.lineWidth=2;x.strokeRect(W-96,y,48,48);

@@ -29,7 +29,7 @@ function ending(k){
 HOOK.endingBind=HOOK.endingBind||[];
 function title(){
  const sv=load();
- $('#ov').hidden=false;$('#ov').innerHTML=`<div class="box"><div class="title-name">عرش أرْوَند</div><p class="title-sub">لعبة إدارة مملكة وقرارات</p>
+ $('#ov').hidden=false;$('#ov').innerHTML=`<div class="box"><div class="title-name">عرش الوادي</div><p class="title-sub">لعبة إدارة مملكة وقرارات</p>
  <p>أنت الملك سالار. الجفاف يأكل حقولك، وأخوك يبتسم أكثر مما ينبغي، وفي الشرق يجمع بهرام سيّد أرض الرماد جيشًا جائعًا. أمامك اثنا عشر أسبوعًا قبل أن يطرق بوابتك.</p>
  <p class="muted">استقبل رعاياك، وأدِر الذهب والطعام والجنود، وأرسل مستشاريك في المهام، واكسب الحلفاء أو اخسرهم. كل قرار يُحسب.</p>
  <h3>اختر مستوى الحكم</h3><div class="diffs">${Object.entries(DIFF).map(([k,d])=>`<button class="px${k==='normal'?' gold':''}" data-diff="${k}"><b>${d.n}</b><small>${d.d}</small></button>`).join('')}</div>

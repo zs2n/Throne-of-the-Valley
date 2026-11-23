@@ -10,7 +10,7 @@ ORDER=['engine/util.js','engine/sprites.js','engine/sprites3.js','data/character
  'engine/audio.js','engine/hall3.js','engine/scene.js','engine/map.js','engine/ui.js','engine/court.js','engine/council.js','engine/report.js',
  'engine/systems.js','engine/advice.js','engine/siege.js','engine/music.js','engine/meta.js','engine/ending.js']
 js='\n'.join(f'/* ---- {p} ---- */\n'+S(p) for p in ORDER if os.path.exists(os.path.join(R,'src',p)))
-head='''<title>عرش أرْوَند</title>
+head='''<title>عرش الوادي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;800&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap">
 <style>'''+S('style.css')+'</style>\n'
@@ -22,5 +22,5 @@ head=head.replace('<link rel="preconnect"','<link rel="icon" href="favicon.ico" 
 body=S('shell.html')+'\n<script>\n'+js+'\n</script>\n'
 os.makedirs(os.path.join(R,'dist'),exist_ok=True)
 open(os.path.join(R,'dist','arvand.html'),'w',encoding='utf-8').write(head_dist+body)
-open(os.path.join(R,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="عرش أرْوَند: لعبة إدارة مملكة وقرارات بأسلوب بكسل آرت، من إنتاج استوديو قرطاس.">\n'+head+'</head>\n<body>\n'+body+'</body>\n</html>\n')
+open(os.path.join(R,'index.html'),'w',encoding='utf-8').write('<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<meta name="description" content="عرش الوادي: لعبة إدارة مملكة وقرارات بأسلوب بكسل آرت، من إنتاج استوديو قرطاس.">\n'+head+'</head>\n<body>\n'+body+'</body>\n</html>\n')
 print('built',len(head+body)//1024,'KB')
