@@ -1503,7 +1503,14 @@ function drawHall3(x,t,o){
  x.restore();
  if(o.ch>=3&&!o.night){x.fillStyle='rgba(200,180,170,.6)';for(let i=0;i<14;i++)x.fillRect((i*53+t/30)%W,(i*37+t/18)%H,1,1);x.fillStyle='rgba(140,40,20,.07)';x.fillRect(0,0,W,H)}
  const vg=x.createRadialGradient(160,100,60,160,100,210);vg.addColorStop(0,'rgba(0,0,0,0)');vg.addColorStop(1,'rgba(6,3,10,.75)');x.fillStyle=vg;x.fillRect(0,0,W,H);
+ pixelSnap(x,W,H);
 }
+/* hard-pixel pass: removes anti-aliasing and smooth gradients (glow, light shafts, vignette) by snapping to a limited palette with ordered dither */
+const BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],SNAP_Q=24;
+function pixelSnap(x,W,H){const im=x.getImageData(0,0,W,H),d=im.data;
+ for(let y=0;y<H;y++)for(let px=0;px<W;px++){const i=(y*W+px)*4,t=(BAYER[(y&3)*4+(px&3)]/16-.5)*SNAP_Q;
+  for(let k=0;k<3;k++){const v=Math.round((d[i+k]+t)/SNAP_Q)*SNAP_Q;d[i+k]=v<0?0:v>255?255:v}}
+ x.putImageData(im,0,0)}
 const hallDust=Array.from({length:30},()=>({x:60+Math.random()*200,y:Math.random()*180,v:.05+Math.random()*.1}));
 
 /* ---- engine/scene.js ---- */
