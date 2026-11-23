@@ -14,6 +14,9 @@ head='''<title>عرش أرْوَند</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;800&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap">
 <style>'''+S('style.css')+'</style>\n'
+import base64
+ico=lambda n:base64.b64encode(open(os.path.join(R,'src',n),'rb').read()).decode()
+head=head.replace('<link rel="preconnect"','<link rel="icon" type="image/png" href="data:image/png;base64,'+ico('icon64.png')+'">\n<link rel="apple-touch-icon" href="data:image/png;base64,'+ico('icon192.png')+'">\n<link rel="preconnect"',1)
 body=S('shell.html')+'\n<script>\n'+js+'\n</script>\n'
 os.makedirs(os.path.join(R,'dist'),exist_ok=True)
 open(os.path.join(R,'dist','arvand.html'),'w',encoding='utf-8').write(head+body)
