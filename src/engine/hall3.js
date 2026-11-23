@@ -36,12 +36,12 @@ function drawHall3(x,t,o){
  x.restore();
  /* characters: small, standing on the floor like a stage */
  const S3=(k,o2)=>SP3.get(k,Object.assign({style:HALL.style},o2));
- const put=(k,cx,feet,o2,flip)=>{const cv=S3(k,o2),w=cv.width;
+ const put=(k,cx,feet,o2,flip,still)=>{const cv=S3(k,o2),w=cv.width;const bob=still||(o2&&o2.frame)?0:(Math.sin(t/760+cx*.41)>.55?-1:0);feet+=bob;
   x.fillStyle='rgba(8,4,10,.40)';x.beginPath();x.ellipse(cx,feet,w*.30,Math.max(1.6,w*.07),0,0,7);x.fill();
   if(flip){x.save();x.translate(Math.round(cx),0);x.scale(-1,1);x.drawImage(cv,-Math.round(w/2),Math.round(feet-cv.height+1));x.restore()}
   else x.drawImage(cv,Math.round(cx-w/2),Math.round(feet-cv.height+1))};
  const kc=S3('king',{H:34,facing:'f',seated:true,expr:o.kingExpr||'neutral'});
- x.drawImage(kc,Math.round(HALL.throne[0]-kc.width/2),Math.round(HALL.throne[1]-kc.height+1));
+ x.drawImage(kc,Math.round(HALL.throne[0]-kc.width/2),Math.round(HALL.throne[1]-kc.height+1)+(Math.sin(t/900)>.6?-1:0));
  put('guard',54,214,{H:44,facing:'q'},false);put('guard',428,214,{H:44,facing:'q'},true);
  (o.advisors||[]).forEach((k,i)=>{const p=HALL.advisors[i];if(p)put(k,p[0],p[1],{H:40,facing:'q'},p[0]>HALL.throne[0])});
  if(o.petitioner)put(o.petitioner,o.px,o.py,{H:48,facing:'q',expr:o.expr||'neutral',frame:o.frame||0},o.leaving);
